@@ -7,7 +7,6 @@ export const backendToyService = {
     getById,
     remove,
     save,
-    hastoys
 }
 
 const gToys = backendUtilService.readJsonFile('data/toy.json')
@@ -59,7 +58,7 @@ function save(toy) {
         if (idx === -1) return Promise.reject('No such toy')
         gToys[idx] = toy
     } else {
-        toy._id = _makeId()
+        toy._id = backendUtilService.makeId()
         gToys.push(toy)
     }
 

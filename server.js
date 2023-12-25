@@ -1,21 +1,33 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import path from 'path'
+import cors from 'cors'
 
-import { backendtoyService } from './services/backend.toy.service.js'
+
+import { backendToyService } from './services/backend.toy.service.js'
 import { backendLoggerService } from './services/backend.logger.service.js'
-import { backendUserService } from './services/backend.user.service.js'
 
 const app = express()
 
 // Config the Express App
+const corsOptions = {
+    origin: [
+        'http://127.0.0.1:8080',
+        'http://localhost:8080',
+        'http://127.0.0.1:5173',
+        'http://localhost:5173',
+    ],
+    credentials: true
+}
+
+app.use(cors(corsOptions))
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(express.json())
 
-// toyS
+// REST API for toys
 
-// list
+// Toys LIST
 app.get('/api/toy', (req, res) => {
 
     const { name, inStock, byLabel, sortBy } = req.query
@@ -28,79 +40,84 @@ app.get('/api/toy', (req, res) => {
         sortBy,
     }
 
-    // if (req.query.pageIdx) filterBy.pageIdx = req.query.pageIdx
-    backendtoyService.query(filterSortBy)
+    backendToyService.query(filterSortBy)
         .then(toys => {
             res.send(toys)
         })
+        .catch((err) => {
+            loggerService.error('Cannot get toys', err)
+            res.status(400).send('Cannot get toys')
+        })
 })
 
-// read
+// Toy READ
 app.get('/api/toy/:toyId', (req, res) => {
 
     const { toyId } = req.params
 
-    backendtoyService.getById(toyId)
+    backendToyService.getById(toyId)
         .then(toy => {
             res.send(toy)
         })
-        .catch(err => {
-            console.log('Error:', err)
-            res.status(401).send('Cannot get toy')
+        .catch((err) => {
+            loggerService.error('Cannot get toy', err)
+            res.status(400).send('Cannot get toy')
         })
 })
 
-// delete
+// Toy DELETE
 app.delete('/api/toy/:toyId', (req, res) => {
 
     const { toyId } = req.params
 
-    backendtoyService
+    backendToyService
         .remove(toyId)
         .then(() => res.send('Removed!'))
         .catch((err) => {
-            console.log('err', err)
-            res.status(401).send(err)
+            loggerService.error('Cannot remove toy', err)
+            res.status(400).send('Cannot remove toy')
         })
 })
 
-// create
+// Toy CREATE
 app.post('/api/toy/edit', (req, res) => {
 
     const toy = {
         name: req.body.name || '',
-        price: req.body.price || 0,
+        price: +req.body.price || 0,
         inStock: req.body.inStock || false,
         labels: req.body.byLabel || [],
     }
 
-    backendtoyService.save(toy)
+    backendToyService.save(toy)
         .then((addedtoy) => {
             res.send(addedtoy)
         })
         .catch((err) => {
-            backendLoggerService.error('unable to save', err)
+            loggerService.error('Cannot save toy', err)
+            res.status(400).send('Cannot save toy')
         })
 })
 
-// update
+// Toy UPDATE
 app.put('/api/toy/edit/:toyId', (req, res) => {
 
     const toy = {
-        _id: req.params.toyId,
+        _id: req.body._id,
         name: req.body.name || '',
-        price: req.body.price || 0,
+        price: +req.body.price || 0,
         inStock: req.body.inStock || false,
         labels: req.body.byLabel || [],
         createAt: req.body.createAt || new Date()
     }
 
-    backendtoyService.save(toy)
+    backendToyService.save(toy)
         .then(savedtoy => {
             res.send(savedtoy)
         })
         .catch((err) => {
-            backendLoggerService.error('unable to save', err)
+            loggerService.error('Cannot save toy', err)
+            res.status(400).send('Cannot save toy')
         })
 })
 
