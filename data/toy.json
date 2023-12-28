@@ -9,7 +9,8 @@
       "Baby"
     ],
     "createdAt": 1631031801011,
-    "inStock": true
+    "inStock": true,
+    "img": "src/assets/img/1.jpg"
   },
   {
     "_id": "t102",
@@ -21,7 +22,8 @@
       "Kids"
     ],
     "createdAt": 1631031812345,
-    "inStock": true
+    "inStock": true,
+    "img": "src/assets/img/2.jpg"
   },
   {
     "_id": "t103",
@@ -33,7 +35,8 @@
       "Cuddly"
     ],
     "createdAt": 1631031823456,
-    "inStock": false
+    "inStock": false,
+    "img": "src/assets/img/3.jpg"
   },
   {
     "_id": "t104",
@@ -45,7 +48,8 @@
       "Toddler"
     ],
     "createdAt": 1631031834567,
-    "inStock": true
+    "inStock": true,
+    "img": "src/assets/img/4.jpg"
   },
   {
     "_id": "t105",
@@ -57,7 +61,8 @@
       "Crib"
     ],
     "createdAt": 1631031845678,
-    "inStock": true
+    "inStock": true,
+    "img": "src/assets/img/5.jpg"
   },
   {
     "_id": "t106",
@@ -69,7 +74,8 @@
       "Children"
     ],
     "createdAt": 1631031856789,
-    "inStock": true
+    "inStock": true,
+    "img": "src/assets/img/6.jpg"
   },
   {
     "_id": "t107",
@@ -81,7 +87,8 @@
       "Kids"
     ],
     "createdAt": 1631031867890,
-    "inStock": false
+    "inStock": false,
+    "img": "src/assets/img/7.jpg"
   },
   {
     "_id": "t108",
@@ -105,19 +112,21 @@
       "Educational"
     ],
     "createdAt": 1631031889012,
-    "inStock": true
+    "inStock": true,
+    "img": "src/assets/img/8.jpg"
   },
   {
     "_id": "t110",
     "name": "Wooden Alphabet Puzzle",
     "price": 24.99,
     "labels": [
-      "Puzzle",
+      "On wheels",
       "Alphabet",
       "Educational"
     ],
     "createdAt": 1631031890123,
-    "inStock": false
+    "inStock": false,
+    "img": "src/assets/img/9.jpg"
   },
   {
     "_id": "t111",
@@ -138,7 +147,9 @@
     "labels": [
       "Flash Cards",
       "Educational",
-      "Learning"
+      "Learning",
+      "On wheels",
+      "Box game"
     ],
     "createdAt": 1631031912345,
     "inStock": true
