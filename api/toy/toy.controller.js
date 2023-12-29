@@ -1,4 +1,5 @@
 import { backendLoggerService } from '../../services/backend.logger.service.js'
+import { backendUtilService } from '../../services/backend.util.service.js'
 import { backendToyService } from './backend.toy.service.js'
 
 
@@ -45,7 +46,6 @@ export async function getToyById(req, res) {
 }
 
 export async function addToy(req, res) {
-    // console.log("req:", req.body)
 
     try {
 
@@ -54,6 +54,7 @@ export async function addToy(req, res) {
             price: +req.body.price || 0,
             inStock: req.body.inStock || false,
             labels: req.body.byLabel || [],
+            msgs: req.body.msgs || [],
         }
 
         const addedtoy = await backendToyService.add(toy)
@@ -67,8 +68,6 @@ export async function addToy(req, res) {
 }
 
 export async function updateToy(req, res) {
-    // console.log("req:", req.body)
-    // console.log("req:", req.params)
 
     try {
 
@@ -81,7 +80,7 @@ export async function updateToy(req, res) {
         //     createAt: req.body.createAt || new Date()
         // }
 
-        const toy = {...req.body}
+        const toy = { ...req.body }
 
         const updatedtoy = await backendToyService.update(toy)
         res.json(updatedtoy)
@@ -112,31 +111,38 @@ export async function removeToy(req, res) {
 
 export async function addToyMsg(req, res) {
 
+    let msgsOnToys = req.cookies.msgsOnToys || []
+    const toyId = req.params.toyId
     const { loggedinUser } = req
 
+    if (!msgsOnToys.includes(toyId)) msgsOnToys.push(toyId)
+    else return res.status(401).send({ err: 'you already have a msg' })
+
     try {
-        const toyId = req.params._id
         const msg = {
             txt: req.body.txt,
-            by: loggedinUser,
+            by: loggedinUser._id,
+            id: req.body.id || '',
+            editAt: (req.body.createAt) ? Date.now() : '',
+            createAt: req.body.createAt || Date.now(),
+
         }
 
         const savedMsg = await backendToyService.addToyMsg(toyId, msg)
         res.json(savedMsg)
 
     } catch (err) {
-        logger.error('Failed to update toy', err)
-        res.status(500).send({ err: 'Failed to update toy' })
+        logger.error('Failed to save msg', err)
+        res.status(500).send({ err: 'Failed to save msg' })
     }
 }
 
 export async function removeToyMsg(req, res) {
 
     try {
-        const toyId = req.params._id
-        const { msgId } = req.params
+        const { msgId,toyId } = req.params
 
-        const removedId = await backendToyService.removetoyMsg(toyId, msgId)
+        const removedId = await backendToyService.removeToyMsg(toyId, msgId)
         res.send(removedId)
 
     } catch (err) {

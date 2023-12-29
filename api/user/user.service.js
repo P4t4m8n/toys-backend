@@ -26,7 +26,7 @@ async function query(filterBy = {}) {
         users = users.map(user => {
 
             delete user.password
-            user.createdAt = ObjectId(user._id).getTimestamp()
+            user.createdAt = new ObjectId(user._id).getTimestamp()
 
             return user
         })

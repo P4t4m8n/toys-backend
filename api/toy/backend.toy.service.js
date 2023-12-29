@@ -70,7 +70,6 @@ async function add(toy) {
 }
 
 async function update(toy) {
-    console.log("toy:", toy)
     try {
         const toyToSave = {
             name: toy.name,
@@ -80,7 +79,6 @@ async function update(toy) {
             createAt: +toy.createAt
         }
 
-        console.log("toyToSave:", toyToSave)
         const collection = await dbService.getCollection('toy')
 
         await collection.updateOne({ _id: new ObjectId(toy._id) }, { $set: toyToSave })
@@ -95,9 +93,14 @@ async function update(toy) {
 
 async function addToyMsg(toyId, msg) {
     try {
-        msg.id = backendUtilService.makeId()
         const collection = await dbService.getCollection('toy')
-        await collection.updateOne({ _id: new ObjectId(toyId) }, { $push: { msgs: msg } })
+        if (!msg.id) {
+            msg.id = backendUtilService.makeId()
+            await collection.updateOne({ _id: new ObjectId(toyId) }, { $push: { msgs: msg } })
+        }
+        else {
+            await collection.updateOne({ _id: new ObjectId(toyId), "msgs.id": msg.id }, { $set: { "msgs.$": msg } })
+        }
         return msg
     } catch (err) {
         backendLoggerService.error(`cannot add toy msg ${toyId}`, err)
@@ -106,6 +109,8 @@ async function addToyMsg(toyId, msg) {
 }
 
 async function removeToyMsg(toyId, msgId) {
+    console.log("toyId:", toyId)
+    console.log("msgId:", msgId)
     try {
         const collection = await dbService.getCollection('toy')
         await collection.updateOne({ _id: new ObjectId(toyId) }, { $pull: { msgs: { id: msgId } } })
@@ -115,6 +120,7 @@ async function removeToyMsg(toyId, msgId) {
         throw err
     }
 }
+
 
 function _savetoysToFile() {
     return new Promise((resolve, reject) => {
@@ -131,7 +137,6 @@ function _savetoysToFile() {
 function _buildCriteria(filterSortBy) {
 
     const { name, inStock, byLabel, sortBy } = filterSortBy
-    console.log("byLabel:", Array.isArray(byLabel))
     const criteria = {}
 
     if (name) criteria.name = { $regex: filterSortBy.name, $options: 'i' }
@@ -143,7 +148,6 @@ function _buildCriteria(filterSortBy) {
     if (byLabel) byLabel.forEach(label => criteria.byLabel = { $eq: label })
 
 
-    console.log("criteria:", criteria)
 
     return criteria
 }
