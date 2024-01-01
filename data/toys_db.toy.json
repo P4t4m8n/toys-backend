@@ -1,0 +1,285 @@
+[{
+  "_id": {
+    "$oid": "658f057948915613ff7776ae"
+  },
+  "name": "Talking Doll",
+  "price": 123,
+  "labels": [
+    "Doll",
+    "Battery Powered",
+    "Baby"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031801011"
+  },
+  "inStock": true,
+  "img": "src/assets/img/1.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776af"
+  },
+  "name": "Colorful Blocks",
+  "price": 29.99,
+  "labels": [
+    "Educational",
+    "Building Blocks",
+    "Kids"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031812345"
+  },
+  "inStock": true,
+  "img": "src/assets/img/2.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b0"
+  },
+  "name": "Interactive Teddy Bear",
+  "price": 89.95,
+  "labels": [
+    "Teddy Bear",
+    "Interactive",
+    "Cuddly"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031823456"
+  },
+  "inStock": false,
+  "img": "src/assets/img/3.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b1"
+  },
+  "name": "Puzzle Play Mat",
+  "price": 49.99,
+  "labels": [
+    "Play Mat",
+    "Puzzle",
+    "Toddler"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031834567"
+  },
+  "inStock": true,
+  "img": "src/assets/img/4.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b2"
+  },
+  "name": "Musical Mobile",
+  "price": 34.5,
+  "labels": [
+    "Baby Gear",
+    "Musical",
+    "Crib"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031845678"
+  },
+  "inStock": true,
+  "img": "src/assets/img/5.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b3"
+  },
+  "name": "Artistic Coloring Book",
+  "price": 14.99,
+  "labels": [
+    "Coloring Book",
+    "Artistic",
+    "Children"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031856789"
+  },
+  "inStock": true,
+  "img": "src/assets/img/6.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b4"
+  },
+  "name": "Remote Control Car",
+  "price": 59.99,
+  "labels": [
+    "Toy Car",
+    "Remote Control",
+    "Kids"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031867890"
+  },
+  "inStock": false,
+  "img": "src/assets/img/7.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b5"
+  },
+  "name": "Plush Animal Backpack",
+  "price": 19.95,
+  "labels": [
+    "Backpack",
+    "Plush",
+    "Travel"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031878901"
+  },
+  "inStock": true,
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b6"
+  },
+  "name": "Building and Construction Set",
+  "price": 69.99,
+  "labels": [
+    "Construction Set",
+    "Building Blocks",
+    "Educational"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031889012"
+  },
+  "inStock": true,
+  "img": "src/assets/img/8.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b7"
+  },
+  "name": "Wooden Alphabet Puzzle",
+  "price": 24.99,
+  "labels": [
+    "On wheels",
+    "Alphabet",
+    "Educational",
+    "Test"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031890123"
+  },
+  "inStock": false,
+  "img": "src/assets/img/9.jpg",
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b8"
+  },
+  "name": "Rattle and Teething Toy",
+  "price": 9.99,
+  "labels": [
+    "Baby Toy",
+    "Rattle",
+    "Teething",
+    "Test"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031901234"
+  },
+  "inStock": true,
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776b9"
+  },
+  "name": "Educational Flash Cards",
+  "price": 18.5,
+  "labels": [
+    "Flash Cards",
+    "Educational",
+    "Learning",
+    "On wheels",
+    "Box game"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031912345"
+  },
+  "inStock": true,
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776ba"
+  },
+  "name": "Soft Baby Blanket",
+  "price": 27.99,
+  "labels": [
+    "Baby Blanket",
+    "Soft",
+    "Cuddly"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031923456"
+  },
+  "inStock": false,
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776bb"
+  },
+  "name": "Science Experiment Kit",
+  "price": 39.99,
+  "labels": [
+    "Science Kit",
+    "Experiment",
+    "Learning"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031934567"
+  },
+  "inStock": true,
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776bc"
+  },
+  "name": "Remote-Controlled Helicopter",
+  "price": 79.99,
+  "labels": [
+    "Helicopter",
+    "Remote Control",
+    "Outdoor"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031945678"
+  },
+  "inStock": true,
+  "msgs": []
+},
+{
+  "_id": {
+    "$oid": "658f057948915613ff7776bd"
+  },
+  "name": "Stuffed Penguin Plush Toy",
+  "price": 12.95,
+  "labels": [
+    "Stuffed Toy",
+    "Penguin",
+    "Cute"
+  ],
+  "createdAt": {
+    "$numberLong": "1631031956789"
+  },
+  "inStock": true,
+  "msgs": []
+}]
