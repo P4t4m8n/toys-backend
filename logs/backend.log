@@ -2733,3 +2733,23 @@
 1.1.2024, 14:23:29 - INFO - Server is running on port: 3031
 1.1.2024, 14:23:31 - INFO - server.js loaded...
 1.1.2024, 14:23:31 - INFO - Server is running on port: 3031
+1.1.2024, 14:26:24 - INFO - Req was made | /
+1.1.2024, 14:26:24 - DEBUG - Getting toys | {"name":"","inStock":"all","sortBy":"name"}
+1.1.2024, 14:26:44 - INFO - Req was made | /
+1.1.2024, 14:26:44 - DEBUG - Getting toys | {"name":"","inStock":"all","sortBy":"name"}
+1.1.2024, 14:27:06 - INFO - server.js loaded...
+1.1.2024, 14:27:06 - INFO - Server is running on port: 3031
+1.1.2024, 14:27:23 - DEBUG - Getting toys | {"name":"","inStock":"all","sortBy":"name"}
+1.1.2024, 14:27:23 - INFO - Req was made | /
+1.1.2024, 14:28:05 - INFO - server.js loaded...
+1.1.2024, 14:28:05 - INFO - Server is running on port: 3031
+1.1.2024, 14:28:05 - DEBUG - Getting toys | {"name":"","inStock":"all","sortBy":"name"}
+1.1.2024, 14:28:05 - INFO - Req was made | /
+1.1.2024, 14:28:11 - INFO - Req was made | /
+1.1.2024, 14:28:11 - DEBUG - Getting toys | {"name":"","inStock":"all","sortBy":"name"}
+1.1.2024, 14:33:23 - INFO - server.js loaded...
+1.1.2024, 14:33:23 - INFO - Server is running on port: 3031
+1.1.2024, 14:33:26 - INFO - server.js loaded...
+1.1.2024, 14:33:26 - INFO - Server is running on port: 3031
+1.1.2024, 14:33:33 - INFO - server.js loaded...
+1.1.2024, 14:33:33 - INFO - Server is running on port: 3031
