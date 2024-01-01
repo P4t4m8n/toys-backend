@@ -2,11 +2,10 @@ import express from 'express'
 import { requireAuth } from '../../middlewares/requireAuth.middleware.js'
 import { log } from '../../middlewares/logger.middleware.js'
 
-import {addReview, getReviews, deleteReview} from './review.controller.js'
-const router = express.Router()
+import { addReview, getReviews, deleteReview } from './review.controller.js'
+export const reviewRoutes = express.Router()
 
-router.get('/', log, getReviews)
-router.post('/',  log, requireAuth, addReview)
-router.delete('/:reviewId',  requireAuth, deleteReview)
+reviewRoutes.get('/', getReviews)
+// reviewRoutes.post('/', log, requireAuth, addReview)
+// reviewRoutes.delete('/:reviewId', requireAuth, deleteReview)
 
-export const reviewRoutes = router

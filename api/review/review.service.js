@@ -1,7 +1,7 @@
 import {dbService} from '../../services/db.service.js'
-import {logger} from '../../services/logger.service.js'
 import {asyncLocalStorage} from '../../services/als.service.js'
 import mongodb from 'mongodb'
+import { backendLoggerService } from '../../services/backend.logger.service.js'
 const {ObjectId} = mongodb
 
 async function query(filterBy = {}) {
@@ -43,12 +43,14 @@ async function query(filterBy = {}) {
             review.toy = { _id: review.toy._id, name: review.toy.name }
             delete review.byUserId
             delete review.toyId
+            
+            console.log("review:", review)
             return review
         })
 
         return reviews
     } catch (err) {
-        logger.error('cannot find reviews', err)
+        backendLoggerService.error('cannot find reviews', err)
         throw err
     }
 
@@ -65,7 +67,7 @@ async function remove(reviewId) {
         const {deletedCount} = await collection.deleteOne(criteria)
         return deletedCount
     } catch (err) {
-        logger.error(`cannot remove review ${reviewId}`, err)
+        backendLoggerService.error(`cannot remove review ${reviewId}`, err)
         throw err
     }
 }
@@ -82,7 +84,7 @@ async function add(review) {
         await collection.insertOne(reviewToAdd)
         return reviewToAdd
     } catch (err) {
-        logger.error('cannot insert review', err)
+        backendLoggerService.error('cannot insert review', err)
         throw err
     }
 }

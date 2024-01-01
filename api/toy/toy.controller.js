@@ -5,6 +5,7 @@ import { backendToyService } from './backend.toy.service.js'
 
 
 export async function getToys(req, res) {
+
     try {
 
         const { name, inStock, byLabel, sortBy } = req.query

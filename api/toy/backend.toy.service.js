@@ -19,7 +19,6 @@ async function query(filterSortBy = {}) {
     try {
 
         const criteria = _buildCriteria(filterSortBy)
-        console.log("criteria:", criteria)
         const { sortBy } = filterSortBy
 
         const collection = await dbService.getCollection('toy')

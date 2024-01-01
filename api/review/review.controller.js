@@ -1,11 +1,13 @@
-import { backendLoggerService } from "../../services/backend.logger.service"
-import { reviewService } from "./review.service"
-import { userService } from '../user/user.service';
+import { reviewService } from "./review.service.js"
+import { userService } from '../user/user.service.js'
+import { backendLoggerService } from "../../services/backend.logger.service.js"
 
 
 export async function getReviews(req, res) {
+
     try {
         const reviews = await reviewService.query(req.query)
+        console.log("reviews:", reviews)
         res.send(reviews)
     } catch (err) {
         backendLoggerService.error('Cannot get reviews', err)

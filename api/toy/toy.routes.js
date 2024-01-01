@@ -6,11 +6,6 @@ import { getToys, getToyById, addToy, updateToy, removeToy, addToyMsg, removeToy
 
 export const toyRoutes = express.Router()
 
-
-
-// middleware that is specific to this router
-// router.use(requireAuth)
-
 toyRoutes.get('/', log, getToys)
 toyRoutes.get('/:toyId', getToyById)
 toyRoutes.post('/edit', requireAuth, requireAdmin, addToy)
