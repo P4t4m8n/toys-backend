@@ -19,6 +19,7 @@ async function query(filterSortBy = {}) {
     try {
 
         const criteria = _buildCriteria(filterSortBy)
+        console.log("criteria:", criteria)
         const { sortBy } = filterSortBy
 
         const collection = await dbService.getCollection('toy')
@@ -145,7 +146,7 @@ function _buildCriteria(filterSortBy) {
 
     if (inStock === 'notInStock') criteria.inStock = { $eq: false }
 
-    if (byLabel) byLabel.forEach(label => criteria.byLabel = { $eq: label })
+    if (byLabel) byLabel.forEach(label => criteria.labels = { $eq: label })
 
 
 
