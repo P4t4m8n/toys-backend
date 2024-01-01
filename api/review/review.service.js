@@ -1,22 +1,28 @@
-import {dbService} from '../../services/db.service.js'
-import {asyncLocalStorage} from '../../services/als.service.js'
+import { asyncLocalStorage } from '../../services/als.service.js'
 import mongodb from 'mongodb'
 import { backendLoggerService } from '../../services/backend.logger.service.js'
-const {ObjectId} = mongodb
+import { dbService } from '../../services/db.service.js'
+const { ObjectId } = mongodb
 
 async function query(filterBy = {}) {
     try {
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('review')
+        // var reviews = await collection.find({})
         // const reviews = await collection.find(criteria).toArray()
         var reviews = await collection.aggregate([
             {
                 $match: criteria
             },
             {
-                $lookup:
-                {
-                    localField: 'byUserId',
+                $addFields: {
+                    userObjId: { $toObjectId: '$userId' },
+                    toyObjId: { $toObjectId: '$toyId' },
+                },
+            },
+            {
+                $lookup: {
+                    localField: 'userObjId',
                     from: 'user',
                     foreignField: '_id',
                     as: 'byUser'
@@ -26,27 +32,32 @@ async function query(filterBy = {}) {
                 $unwind: '$byUser'
             },
             {
-                $lookup:
-                {
-                    localField: 'toyId',
+                $lookup: {
+                    localField: 'toyObjId',
                     from: 'toy',
                     foreignField: '_id',
-                    as: 'toy'
+                    as: 'byToy'
                 }
             },
             {
-                $unwind: '$toy'
+                $unwind: '$byToy'
             }
         ]).toArray()
-        reviews = reviews.map(review => {
-            review.byUser = { _id: review.byUser._id, fullname: review.byUser.fullname }
-            review.toy = { _id: review.toy._id, name: review.toy.name }
-            delete review.byUserId
+
+        reviews.map(review => {
+            review.toy = { _id: review.toyId, name: review.byToy.name, price: review.byToy.price },
+                review.user = { _id: review.userId, username: review.byUser.username },
+                review.content = review.txt,
+
+                delete review.txt
+            delete review.byUser
+            delete review.byToy
+            delete review.userId
             delete review.toyId
-            
-            console.log("review:", review)
-            return review
+            delete review.userObjId
+            delete review.toyObjId
         })
+
 
         return reviews
     } catch (err) {
@@ -64,7 +75,7 @@ async function remove(reviewId) {
         // remove only if user is owner/admin
         const criteria = { _id: ObjectId(reviewId) }
         if (!loggedinUser.isAdmin) criteria.byUserId = ObjectId(loggedinUser._id)
-        const {deletedCount} = await collection.deleteOne(criteria)
+        const { deletedCount } = await collection.deleteOne(criteria)
         return deletedCount
     } catch (err) {
         backendLoggerService.error(`cannot remove review ${reviewId}`, err)
@@ -74,12 +85,14 @@ async function remove(reviewId) {
 
 
 async function add(review) {
+    console.log("review:", review)
     try {
         const reviewToAdd = {
-            byUserId: ObjectId(review.byUserId),
-            toyId: ObjectId(review.toyId),
-            txt: review.txt
+            toy: { _id: review.toyId, name: review.toy.name, price: review.toy.price },
+            user: { _id: review.userId, username: review.user.username },
+            content: review.txt
         }
+  
         const collection = await dbService.getCollection('review')
         await collection.insertOne(reviewToAdd)
         return reviewToAdd
@@ -91,7 +104,8 @@ async function add(review) {
 
 function _buildCriteria(filterBy) {
     const criteria = {}
-    if (filterBy.byUserId) criteria.byUserId = filterBy.byUserId
+    if (filterBy.toyId) criteria.toyId = filterBy.toyId
+    if (filterBy.username) criteria.username = filterBy.username
     return criteria
 }
 
