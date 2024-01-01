@@ -39,6 +39,9 @@ app.use('/api/user', userRoutes)
 import { toyRoutes } from './api/toy/toy.routes.js'
 app.use('/api/toy', toyRoutes)
 
+// import { reviewRoutes } from './api/review/review.routes.js'
+// app.use('api/review',reviewRoutes)
+
 
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve('public/index.html'))
