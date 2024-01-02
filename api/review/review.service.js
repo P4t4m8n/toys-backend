@@ -67,15 +67,15 @@ async function query(filterBy = {}) {
 
 }
 
-async function remove(reviewId) {
+async function remove(reviewId, user) {
     try {
-        const store = asyncLocalStorage.getStore()
-        const { loggedinUser } = store
         const collection = await dbService.getCollection('review')
         // remove only if user is owner/admin
-        const criteria = { _id: ObjectId(reviewId) }
-        if (!loggedinUser.isAdmin) criteria.byUserId = ObjectId(loggedinUser._id)
+        const criteria = { _id: new ObjectId(reviewId) }
+        if (!user.isAdmin) criteria.userId = user._id
+        console.log("criteria:", criteria)
         const { deletedCount } = await collection.deleteOne(criteria)
+
         return deletedCount
     } catch (err) {
         backendLoggerService.error(`cannot remove review ${reviewId}`, err)
@@ -85,16 +85,29 @@ async function remove(reviewId) {
 
 
 async function add(review) {
-    console.log("review:", review)
     try {
+
         const reviewToAdd = {
+            toyId: review.toyId,
+            userId: review.userId,
+            txt: review.txt
+        }
+        const reviewToReturn = {
             toy: { _id: review.toyId, name: review.toy.name, price: review.toy.price },
             user: { _id: review.userId, username: review.user.username },
             content: review.txt
         }
-  
+
         const collection = await dbService.getCollection('review')
         await collection.insertOne(reviewToAdd)
+        reviewToAdd.toy = { _id: review.toyId, name: review.toy.name, price: review.toy.price }
+        reviewToAdd.user = { _id: review.userId, username: review.user.username }
+        reviewToAdd.content = reviewToAdd.txt
+
+        delete reviewToAdd.toyId
+        delete reviewToAdd.userId
+        delete reviewToAdd.txt
+
         return reviewToAdd
     } catch (err) {
         backendLoggerService.error('cannot insert review', err)

@@ -17,8 +17,11 @@ export async function getReviews(req, res) {
 }
 
 export async function deleteReview(req, res) {
+    const { reviewId } = req.params
+    const { loggedinUser } = req
+  
     try {
-        const deletedCount = await reviewService.remove(req.params.id)
+        const deletedCount = await reviewService.remove(reviewId, loggedinUser)
         if (deletedCount === 1) {
             res.send({ msg: 'Deleted successfully' })
         } else {
@@ -34,7 +37,6 @@ export async function deleteReview(req, res) {
 export async function addReview(req, res) {
 
     var { loggedinUser } = req
-    console.log("loggedinUser:", loggedinUser)
     var toy = await backendToyService.getById(req.body.toyId)
     try {
         var review = req.body

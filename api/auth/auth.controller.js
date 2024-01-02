@@ -8,7 +8,7 @@ export async function login(req, res) {
         const loginToken = authService.getLoginToken(user)
 
         backendLoggerService.info('User login: ', user)
-        res.cookie('loginToken', loginToken)
+        res.cookie('loginToken', loginToken, { sameSite: 'None', secure: true })
 
         res.json(user)
     } catch (err) {
